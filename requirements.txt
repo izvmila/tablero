@@ -5,4 +5,3 @@ ipython-genutils
 requests
 pandas
 matplotlib
-io
