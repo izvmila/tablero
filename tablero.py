@@ -23,7 +23,7 @@ sidebar_render = st.sidebar.radio("Opciones : ",["Inicio", "Análisis de secuenc
 
 # Página principal
 if sidebar_render == "Inicio":
-    st.title('🧬 **Bioinformática**')
+    st.title('🧬 **Bioinformática: Análisis de Proteínas**')
 
     # Estilo de texto y colores
     st.markdown("""
@@ -48,21 +48,21 @@ if sidebar_render == "Inicio":
     """, unsafe_allow_html=True)
 
     # Título
-    st.markdown('<div class="main-title">Análisis de Proteínas</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Bienvenido al Análisis de Proteínas</div>', unsafe_allow_html=True)
 
     # Descripción y subsecciones
     st.markdown("""
     <div class="text-block">
-        Este tablero tiene el objetivo de ayudar en el análisis y visualización de proteínas. 
-        Agregamos diferentes herramientas para poder observar sus propiedades, entre ellas:
+        Este tablero tiene el objetivo de facilitar el análisis y visualización de proteínas a partir de sus secuencias y estructuras. 
+        Explora diferentes herramientas interactivas para estudiar sus propiedades y estructura. Las secciones disponibles son:
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    - **🔬 Análisis de secuencia**: Sube tus archivos FASTA para obtener las secuencias de proteínas. Extrae información relevante como la composición de aminoácidos y propiedades biofísicas.
-    - **🧬 Parámetros de la estructura**: Calcula características estructurales, como el peso molecular, el punto isoeléctrico y la estabilidad de las proteínas.
+    - **🔬 Análisis de secuencia**: Carga archivos FASTA y analiza las secuencias de proteínas. Extrae información relevante como la composición de aminoácidos y propiedades biofísicas.
+    - **🧬 Parámetros de la estructura**: Calcula características estructurales, como el peso molecular, el punto isoeléctrico y la estabilidad de las proteínas, con un análisis detallado a nivel molecular.
     - **🔍 Secuencia de aminoácidos de proteínas**: Visualiza la secuencia y la proporción de átomos de diversas proteínas, con gráficos que permiten una mejor interpretación de sus características.
-    - **🌐 Visualización 3D de proteínas**: Introduce un código PDB y explora la estructura tridimensional de proteínas en modelos 3D interactivos.
+    - **🌐 Visualización 3D de proteínas**: Introduce un código PDB y explora la estructura tridimensional de proteínas en modelos interactivos. Personaliza la visualización y observa la estructura desde diferentes perspectivas.
     """, unsafe_allow_html=True)
 
     # Línea divisoria
@@ -71,7 +71,7 @@ if sidebar_render == "Inicio":
     # Mensaje motivador
     st.markdown("""
     <div class="text-block">
-        ¡Explora las herramientas del lado izquierdo y haz un análisis de las proteínas que te interesen!
+        ¡Explora las herramientas del lado izquierdo y haz un análisis profundo de las proteínas que te interesen!
     </div>
     """, unsafe_allow_html=True)
 
@@ -137,25 +137,33 @@ if sidebar_render == "Parámetros de la estructura":
 
             # Número de aminoácidos
             st.markdown("**1️⃣ Número de aminoácidos:**")
+              
             st.info(f"🔢 **Valor:** `{sequence_reference.count_amino_acids()}`")
+            st.markdown("Los aminoácidos son moléculas que se combinan para formar proteínas. Los aminoácidos y las proteínas son los pilares fundamentales de la vida. Cuando las proteínas se digieren o se descomponen, el resultado son los aminoácidos.")
 
             # Peso molecular
             molecular_weight = round(sequence_reference.molecular_weight(), 2)
             st.markdown("**2️⃣ Peso molecular:**")
             st.info(f"⚖️ **Peso molecular:** `{molecular_weight} Da`")
+            st.markdown("Los marcadores de peso molecular, o ladders, son un conjunto de estándares que se utilizan para determinar el tamaño aproximado de una proteína o un de fragmento de ácido nucleico procesado en un gel de electroforesis.")
 
             # Aromaticidad con barra de progreso
             aromaticity = round(sequence_reference.aromaticity(), 2)
             st.markdown("**3️⃣ Aromaticidad:**")
             st.info("Proporción de aminoácidos aromáticos en la proteína.")
-            st.progress(min(int(aromaticity * 100), 100))  # Barra de progreso de 0 a 100%
+            progress_value = int(aromaticity * 100)  # Convertir a porcentaje
+            st.progress(progress_value)  # Barra de progreso de 0 a 100%
+            st.markdown(f"**{progress_value}%** de la proteína tiene aminoácidos aromáticos.")
+            st.markdown("La aromaticidad es una propiedad de las estructuras cíclicas, no saturadas, cuya estabilidad es superior a la de las estructuras de cadena abierta con igual número de enlaces múltiples.")
 
             # Índice de inestabilidad con barra visual
             instability_index = round(sequence_reference.instability_index(), 2)
             stability = "La proteína es inestable" if instability_index >= 40 else "La proteína es estable"
             st.markdown("**4️⃣ Índice de inestabilidad:**")
             st.info(f"📉 **Valor:** `{instability_index}` - ⚖️ **Estabilidad:** {stability}")
+            progress_value_instability = min(int(instability_index), 100)  # Convertir a porcentaje y limitar a 100
             st.progress(min(int(instability_index), 100))  # Barra de progreso del índice de inestabilidad
+            st.markdown(f"**{progress_value_instability}%** del índice de inestabilidad.")
 
             # Punto isoeléctrico
             isoelectric_point = round(sequence_reference.isoelectric_point(), 2)
@@ -333,3 +341,5 @@ if sidebar_render == "Visualizador de proteínas":
                 st.success(f"Estructura del código PDB `{PDB_Code}` generada con éxito. 🎉", icon="✅")
             except Exception as e:
                 st.error(f"❌ Hubo un error al obtener la estructura o la información asociada. Verifica el código PDB e inténtalo nuevamente. \nError: {e}")
+
+         
