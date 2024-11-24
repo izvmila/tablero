@@ -34,7 +34,11 @@ if sidebar_render == "Inicio":
     - **Visualización 3D de proteínas**: Introduce un código PDB y explora la estructura tridimensional de proteínas en modelos interactivos. Personaliza la visualización y observa la estructura desde diferentes perspectivas.
 
     ---
-    ¡Comienza a explorar las herramientas del lado izquierdo y haz un análisis profundo de las proteínas que te interesen!
+    ¡Explora las herramientas del lado izquierdo y haz un análisis profundo de las proteínas que te interesen!
+    ---
+             Equipo:
+             -Camila García Rascón
+             -Valeria Jara Salomón 
     """)
 
 # Creamos Análisis de Secuencia
