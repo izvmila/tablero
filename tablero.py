@@ -23,7 +23,7 @@ sidebar_render = st.sidebar.radio("Opciones : ",["Inicio", "Análisis de secuenc
 
 # Página principal
 if sidebar_render == "Inicio":
-    st.title('🧬 **Bioinformática: Análisis de Proteínas**')
+    st.title('🧬 **Bioinformática**')
 
     # Estilo de texto y colores
     st.markdown("""
@@ -48,21 +48,21 @@ if sidebar_render == "Inicio":
     """, unsafe_allow_html=True)
 
     # Título
-    st.markdown('<div class="main-title">Bienvenido al Análisis de Proteínas</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Análisis de Proteínas</div>', unsafe_allow_html=True)
 
     # Descripción y subsecciones
     st.markdown("""
     <div class="text-block">
-        Este tablero tiene el objetivo de facilitar el análisis y visualización de proteínas a partir de sus secuencias y estructuras. 
-        Explora diferentes herramientas interactivas para estudiar sus propiedades y estructura. Las secciones disponibles son:
+        Este tablero tiene el objetivo de ayudar en el análisis y visualización de proteínas. 
+        Agregamos diferentes herramientas para poder observar sus propiedades, entre ellas:
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    - **🔬 Análisis de secuencia**: Carga archivos FASTA y analiza las secuencias de proteínas. Extrae información relevante como la composición de aminoácidos y propiedades biofísicas.
-    - **🧬 Parámetros de la estructura**: Calcula características estructurales, como el peso molecular, el punto isoeléctrico y la estabilidad de las proteínas, con un análisis detallado a nivel molecular.
+    - **🔬 Análisis de secuencia**: Sube tus archivos FASTA para obtener las secuencias de proteínas. Extrae información relevante como la composición de aminoácidos y propiedades biofísicas.
+    - **🧬 Parámetros de la estructura**: Calcula características estructurales, como el peso molecular, el punto isoeléctrico y la estabilidad de las proteínas.
     - **🔍 Secuencia de aminoácidos de proteínas**: Visualiza la secuencia y la proporción de átomos de diversas proteínas, con gráficos que permiten una mejor interpretación de sus características.
-    - **🌐 Visualización 3D de proteínas**: Introduce un código PDB y explora la estructura tridimensional de proteínas en modelos interactivos. Personaliza la visualización y observa la estructura desde diferentes perspectivas.
+    - **🌐 Visualización 3D de proteínas**: Introduce un código PDB y explora la estructura tridimensional de proteínas en modelos 3D interactivos.
     """, unsafe_allow_html=True)
 
     # Línea divisoria
@@ -71,7 +71,7 @@ if sidebar_render == "Inicio":
     # Mensaje motivador
     st.markdown("""
     <div class="text-block">
-        ¡Explora las herramientas del lado izquierdo y haz un análisis profundo de las proteínas que te interesen!
+        ¡Explora las herramientas del lado izquierdo y haz un análisis de las proteínas que te interesen!
     </div>
     """, unsafe_allow_html=True)
 
