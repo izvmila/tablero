@@ -23,7 +23,7 @@ sidebar_render = st.sidebar.radio("Opciones : ",["Inicio", "Análisis de secuenc
 
 # Página principal
 if sidebar_render == "Inicio":
-    st.title('🧬 **Bioinformática: Análisis de Proteínas**')
+    st.title('🧬 **Bioinformática**')
 
     # Estilo de texto y colores
     st.markdown("""
@@ -48,7 +48,7 @@ if sidebar_render == "Inicio":
     """, unsafe_allow_html=True)
 
     # Título
-    st.markdown('<div class="main-title">Bienvenido al Análisis de Proteínas</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Análisis de Proteínas</div>', unsafe_allow_html=True)
 
     # Descripción y subsecciones
     st.markdown("""
