@@ -127,7 +127,7 @@ if sidebar_render == "Parámetros de la estructura":
     sequence_input = st.text_area("✍️ Ingresa la secuencia de aminoácidos:")
     pH = st.number_input("🌡️ ¿Con qué nivel de pH deseas analizar tu proteína?", min_value=0.0, max_value=14.0, value=7.0, step=0.1)
     
-    if st.button("⚡ ¡CALCULAAAR!"):
+    if st.button("⚡ ¡Calcular!"):
         if not sequence_input:
             st.error("Por favor, ingresa una secuencia para calcular sus propiedades.")
         else:
@@ -210,11 +210,21 @@ def calcular_proporcion(proteina):
     aa_count = Counter(secuencia)
     return aa_count
 
+# Función para obtener un archivo PDB de la proteína seleccionada
+def obtener_pdb(proteina):
+    # Puedes reemplazar estos códigos por archivos PDB reales
+    pdb_files = {
+        "Insulina": "1Z0Q",  # Código PDB de la insulina
+        "Glucagon": "1PGR",  # Código PDB del glucagón
+        "Hemoglobina": "2DN2",  # Código PDB de la hemoglobina
+        "Colageno": "1CGI",  # Código PDB del colágeno
+    }
+    return pdb_files.get(proteina)
 
 # Interfaz en Secuencia de aminoácidos de proteínas
 if sidebar_render == "Secuencia de aminoácidos de proteínas":
     st.title("🔍 Secuencia de Aminoácidos de Proteínas")
-    st.markdown("Aquí puedes observar las secuencias de 4 proteínas diferentes y su proporción de átomos. 🌟")
+    st.markdown("Aquí puedes observar las secuencias de 4 proteínas diferentes, su proporción de átomos y su modelo 3D. 🌟")
 
     proteina_seleccionada = st.selectbox("Selecciona una proteína", list(proteinas.keys()))
 
@@ -229,6 +239,19 @@ if sidebar_render == "Secuencia de aminoácidos de proteínas":
         fig, ax = plt.subplots()
         ax.bar(aa_count.keys(), aa_count.values())
         st.pyplot(fig)
+
+        # Obtener el archivo PDB y visualizar la estructura 3D
+        pdb_code = obtener_pdb(proteina_seleccionada)
+        if pdb_code:
+            st.write(f"Visualización 3D de {proteina_seleccionada}:")
+            view = py3Dmol.view(query='pdb:' + pdb_code)
+            view.setStyle({'stick': {}})
+            view.addStyle({'sphere': {'radius': 0.3, 'color': 'blue'}})  # Átomos en esferas
+            view.setBackgroundColor('white')
+            view.zoomTo()
+
+            # Mostrar la visualización 3D en Streamlit usando HTML
+            st.components.v1.html(view._make_html(), height=500)
     
 
 
