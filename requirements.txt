@@ -3,3 +3,6 @@ stmol
 py3Dmol
 ipython-genutils
 requests
+pandas
+matplotlib
+io
