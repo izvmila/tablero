@@ -127,7 +127,7 @@ if sidebar_render == "Parámetros de la estructura":
     sequence_input = st.text_area("✍️ Ingresa la secuencia de aminoácidos:")
     pH = st.number_input("🌡️ ¿Con qué nivel de pH deseas analizar tu proteína?", min_value=0.0, max_value=14.0, value=7.0, step=0.1)
     
-    if st.button("⚡ ¡Calcular!"):
+    if st.button("⚡ ¡CALCULAAAR!"):
         if not sequence_input:
             st.error("Por favor, ingresa una secuencia para calcular sus propiedades.")
         else:
