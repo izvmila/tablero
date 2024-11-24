@@ -23,23 +23,65 @@ sidebar_render = st.sidebar.radio("Opciones : ",["Inicio", "Análisis de secuenc
 
 # Página principal
 if sidebar_render == "Inicio":
-    st.title('🧬 Bioinformática: Análisis de Proteínas')
-    st.write("""
-    ## Bienvenido al Análisis de Proteínas 
-    Este tablero está diseñado para facilitar el análisis y visualización de proteínas a partir de sus secuencias y estructuras. Explora diferentes herramientas interactivas para estudiar sus propiedades y modelar su estructura. Las secciones disponibles son:
+    st.title('🧬 **Bioinformática: Análisis de Proteínas**')
 
-    - **Análisis de secuencia**: Carga archivos FASTA y analiza las secuencias de proteínas. Extrae información relevante como la composición de aminoácidos y propiedades biofísicas.
-    - **Parámetros de la estructura**: Calcula características estructurales, como el peso molecular, el punto isoeléctrico y la estabilidad de las proteínas, con un análisis detallado a nivel molecular.
-    - **Secuencia de aminoácidos de proteínas**: Visualiza la secuencia y la proporción de átomos de diversas proteínas, con gráficos que permiten una mejor interpretación de sus características.
-    - **Visualización 3D de proteínas**: Introduce un código PDB y explora la estructura tridimensional de proteínas en modelos interactivos. Personaliza la visualización y observa la estructura desde diferentes perspectivas.
+    # Estilo de texto y colores
+    st.markdown("""
+    <style>
+        .main-title {
+            color: #4CAF50;  /* verde claro */
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
 
-    ---
-    ¡Explora las herramientas del lado izquierdo y haz un análisis profundo de las proteínas que te interesen!
-    ---
-             Equipo:
-             -Camila García Rascón
-             -Valeria Jara Salomón 
-    """)
+        .text-block {
+            color: #88dd9f;  /* verde más claro */
+            font-size: 18px;
+        }
+        .team {
+            font-style: bold;
+            font-size: 16px;
+            color: #7b9edd;  /* azul */
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Título
+    st.markdown('<div class="main-title">Bienvenido al Análisis de Proteínas</div>', unsafe_allow_html=True)
+
+    # Descripción y subsecciones
+    st.markdown("""
+    <div class="text-block">
+        Este tablero tiene el objetivo de facilitar el análisis y visualización de proteínas a partir de sus secuencias y estructuras. 
+        Explora diferentes herramientas interactivas para estudiar sus propiedades y estructura. Las secciones disponibles son:
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    - **🔬 Análisis de secuencia**: Carga archivos FASTA y analiza las secuencias de proteínas. Extrae información relevante como la composición de aminoácidos y propiedades biofísicas.
+    - **🧬 Parámetros de la estructura**: Calcula características estructurales, como el peso molecular, el punto isoeléctrico y la estabilidad de las proteínas, con un análisis detallado a nivel molecular.
+    - **🔍 Secuencia de aminoácidos de proteínas**: Visualiza la secuencia y la proporción de átomos de diversas proteínas, con gráficos que permiten una mejor interpretación de sus características.
+    - **🌐 Visualización 3D de proteínas**: Introduce un código PDB y explora la estructura tridimensional de proteínas en modelos interactivos. Personaliza la visualización y observa la estructura desde diferentes perspectivas.
+    """, unsafe_allow_html=True)
+
+    # Línea divisoria
+    st.markdown("<hr style='border:1px solid #ccc;'/>", unsafe_allow_html=True)
+
+    # Mensaje motivador
+    st.markdown("""
+    <div class="text-block">
+        ¡Explora las herramientas del lado izquierdo y haz un análisis profundo de las proteínas que te interesen!
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Información del equipo
+    st.markdown("<hr style='border:1px solid #ccc;'/>", unsafe_allow_html=True)
+    st.markdown("<div class='team'>Equipo:</div>", unsafe_allow_html=True)
+    st.markdown("""
+    - **Camila García Rascón**
+    - **Valeria Jara Salomón**
+    """, unsafe_allow_html=True)
 
 # Creamos Análisis de Secuencia
 if sidebar_render == "Análisis de secuencia":
@@ -63,7 +105,7 @@ if sidebar_render == "Análisis de secuencia":
                     st.markdown(f"**🧪 Secuencia de aminoácidos:**")
                     st.code(str(record.seq), language="text")
                     st.markdown(f"**📏 Longitud de la secuencia:** `{len(record.seq)}`")
-                st.divider()  # Línea divisoria elegante entre secuencias
+                st.divider()  # Línea divisoria entre secuencias
 
     # Subir archivo FASTA
     uploaded_file = st.file_uploader("📂 Sube tu archivo FASTA", type=["fasta"], help="Solo se admiten archivos con extensión .fasta")
@@ -148,7 +190,8 @@ if sidebar_render == "Parámetros de la estructura":
             st.info(f"⚡ **Carga a pH {pH}:** `{charge}`")
 
 
-import requests  # Para obtener datos desde la API de PDB
+import requests  
+
 
 # Definir las proteínas y sus secuencias
 proteinas = {
@@ -159,7 +202,6 @@ proteinas = {
 }
 
 
-
 # Función para calcular la proporción de átomos
 def calcular_proporcion(proteina):
     secuencia = proteinas.get(proteina)
@@ -168,24 +210,11 @@ def calcular_proporcion(proteina):
     aa_count = Counter(secuencia)
     return aa_count
 
-# Función para mostrar el modelo 3D de la proteína (suponiendo que ya tienes el archivo PDB)
-def mostrar_modelo_3d(pdb_code):
-    viewer = py3Dmol.view(width=800, height=600)
-    pdb_file = f"https://files.rcsb.org/download/{pdb_code}.pdb"
-    viewer.addModelFromUrl(pdb_file, 'pdb')
-    viewer.setStyle({'stick': {}})
-    viewer.zoomTo()
 
-    # Crear HTML para visualizar el modelo
-    viewer_html = viewer._js()  # Se genera el script para mostrar en HTML
-
-    # Mostrar el modelo 3D en Streamlit
-    components.html(viewer_html, height=600)
-
-# Interfaz en Streamlit
+# Interfaz en Secuencia de aminoácidos de proteínas
 if sidebar_render == "Secuencia de aminoácidos de proteínas":
     st.title("🔍 Secuencia de Aminoácidos de Proteínas")
-    st.markdown("Aquí puedes observar las secuencias de 4 proteínas diferentes, su proporción de átomos y sus imágenes de modelo 3D. 🌟")
+    st.markdown("Aquí puedes observar las secuencias de 4 proteínas diferentes y su proporción de átomos. 🌟")
 
     proteina_seleccionada = st.selectbox("Selecciona una proteína", list(proteinas.keys()))
 
